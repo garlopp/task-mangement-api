@@ -14,15 +14,15 @@ def get_current_user(
 ) -> UserModel:
     try:
         payload = jwt.decode(token.credentials, SECRET_KEY, algorithms=[ALGORITHM])
-        email: str = payload.get("sub")  # The user's email is the subject of the token
+        email: str = payload.get("sub")  
         if email is None:
             raise HTTPException(status_code=401, detail="Invalid token payload")
     except JWTError as e:
-        print(f"JWT Decode Error: {e}")  # This will print the specific error to your console
+        print(f"JWT Decode Error: {e}") 
         raise HTTPException(status_code=401, detail="Invalid token")
 
     user = user_crud.get_user_by_email(db, email)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 
-    return user  # this is the real DB user instance
+    return user  
