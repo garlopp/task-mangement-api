@@ -8,6 +8,8 @@ passlib[bcrypt]
 pydantic
 email-validator
 python-dotenv
+gunicorn
+pydantic-settings
 
 # For testing
 pytest
