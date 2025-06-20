@@ -11,31 +11,31 @@ from config import APP_BASE_URL
 
 router = APIRouter(prefix="/tasks", tags=["tasks"])
 
-@router.post("/", response_model=TaskResponse)
+@router.post("/create_task", response_model=TaskResponse)
 def create_task(task: TaskCreate, db: Session = Depends(get_db), current_user: UserModel = Depends(get_current_user)):
-    return task_crud.create_task(db, task, current_user.id)
+    return task_crud.create_task(db, task, current_user.id) # type: ignore
 
-@router.get("/", response_model=list[TaskResponse])
+@router.get("/get_tasks", response_model=list[TaskResponse])
 def read_tasks(db: Session = Depends(get_db), current_user: UserModel = Depends(get_current_user)):
-    return task_crud.get_tasks(db, current_user.id)
+    return task_crud.get_tasks(db, current_user.id) # type: ignore
 
-@router.get("/{task_id}", response_model=TaskResponse)
+@router.get("/get_task/{task_id}", response_model=TaskResponse)
 def read_task(task_id: int, db: Session = Depends(get_db), current_user: UserModel = Depends(get_current_user)):
-    db_task = task_crud.get_task(db, task_id, current_user.id)
+    db_task = task_crud.get_task(db, task_id, current_user.id) # type: ignore
     if not db_task:
         raise HTTPException(status_code=404, detail="Task not found")
     return db_task
 
-@router.put("/{task_id}", response_model=TaskResponse)
+@router.put("/update_task/{task_id}", response_model=TaskResponse)
 def update_task(task_id: int, task: TaskUpdate, db: Session = Depends(get_db), current_user: UserModel = Depends(get_current_user)):
-    db_task = task_crud.update_task(db, task_id, current_user.id, task)
+    db_task = task_crud.update_task(db, task_id, current_user.id, task) # type: ignore
     if not db_task:
         raise HTTPException(status_code=404, detail="Task not found")
     return db_task
 
-@router.delete("/{task_id}")
+@router.delete("/delete_task/{task_id}")
 def delete_task(task_id: int, db: Session = Depends(get_db), current_user: UserModel = Depends(get_current_user)):
-    db_task = task_crud.delete_task(db, task_id, current_user.id)
+    db_task = task_crud.delete_task(db, task_id, current_user.id) # type: ignore
     if not db_task:
         raise HTTPException(status_code=404, detail="Task not found")
     return {"msg": "Task deleted"}

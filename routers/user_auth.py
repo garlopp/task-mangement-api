@@ -4,7 +4,7 @@ from db import get_db
 from schemas import UserCreate, UserVerify, UserLogin, UserResponse, Token
 from crud import user as user_crud
 from utils import jwt
-from utils.hash import verify_password, hash_password
+from crud.user import verify_password, hash_password
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 

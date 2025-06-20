@@ -19,13 +19,9 @@ class UserResponse(BaseModel):
     email: EmailStr
     is_verified: bool
 
-
 class Token(BaseModel):
     access_token: str
     token_type: str
-
-
-
 
 class TaskBase(BaseModel):
     title: str

@@ -35,9 +35,9 @@ def delete_task(db: Session, task_id: int, user_id: int):
         return None
     db.delete(db_task)
     db.commit()
-    return db_task
+    return db_task #Why not add db.refresh() here?
 
-def create_shared_task_token(db: Session, task_id: int, email_to_share_with: str, expires_delta_days: int = 7) -> SharedTaskTokenModel:
+def create_shared_task_token(db: Session, task_id: int, email_to_share_with: str, expires_delta_days: int = 7,) -> SharedTaskTokenModel:
     """
     Creates a new share token for a task.
     """
